@@ -46,12 +46,12 @@ class PeliculasController extends Controller
         $peliculas->año = $request->input('año');
         $peliculas->imagen = $request->input('imagen');
         $peliculas->genero = $request->input('genero' );
-        $peliculas->año = $request->input('año');
+        $peliculas->descripcion = $request->input('descripcion');
 
         if($request->hasFile('imagen')) {
         $nameImg = $request->file('imagen')->getClientOriginalName(); //Devuelve el nombre del archivo original. Se extrae de la solicitud desde la que se ha cargado el archivo.  
         $imagen = $request->imagen->storeAs('/img', $nameImg); // movemos la imagen a la carpeta img
-        $peliculas->imagen = $imagen;
+        $peliculas->imagen = "/".$imagen;
         }
         $peliculas->save();
         return redirect()->action('PeliculasController@index');
@@ -104,8 +104,8 @@ class PeliculasController extends Controller
 
         if($request->hasFile('imagen')) {
         $nameImg = $request->file('imagen')->getClientOriginalName();//Devuelve el nombre del archivo original. Se extrae de la solicitud desde la que se ha cargado el archivo. 
-        $imagen = $request->imagen->storeAs('/img', $nameImg); // movemos la imagen a la carpeta img
-        $peliculas->imagen = $imagen;
+        $imagen = $request->imagen->storeAs('/img/', $nameImg); // movemos la imagen a la carpeta img
+        $peliculas->imagen = "/".$imagen;
         }
         $peliculas->genero = $request->input('genero');
         $peliculas->descripcion = $request->input('descripcion');
